@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xml must have a root element-->
+<manifest>
+    <!-- remote tag's name attr is remote branch's name-->
+    <remote name="test" fetch="/home/rednoah" />
+	<default remote="test" revision="master" />
+	<project path="local" name="test/my_git" clone-depth="2">
+	    <!--
+		src: project relative
+		dest: relative to the top of the tree
+		-->
+	    <linkfile src="readme" dest="local/README" />
+	</project>
+</manifest>

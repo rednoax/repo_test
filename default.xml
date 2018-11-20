@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<manifest>
+    <remote name="alt" fetch="https://github.com/OP-TEE" />
+	<!--project element that has no remote/revision attr will use default's remote/revision attr-->
+	<default remote="alt" revision="master" />
+	<project path="deep-manifest" name="manifest" />
+	<!--sync-c set to true to only sync the given Git branch specified in the 'revision' attibute
+	rather than the whole ref space-->
+	<project path="shalow-manifest" name="manifest" sync-c="true" />
+	<!--
+	revision attribute: name of the branch to track, it can be sth. like:
+	1. refs/heads/master
+	2. master
+	3. tags or SHA1
+	The following use a initial commit(the earliest) sha1 hash
+	-->
+	<project path="some-revision" name="manifest" revision="dedcb92008ea3df251455ab11a79f00020521a6c" />
+</manifest>
