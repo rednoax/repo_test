@@ -16,8 +16,118 @@
 	-->
 	<project path="some-revision" name="manifest" revision="dedcb92008ea3df251455ab11a79f00020521a6c" />
 	<!--
-	the following commit is a remotes/alt/3.3.0 branch's head's SHA1.
-	Add sync-c="true" with it to see what happened
+	1. the following commit is a remotes/alt/3.3.0 branch's head's SHA1. Add sync-c="true" with it to see what happened
+	2. the following line is commited after the former repo init; so "repo sync" generates:
+rednoah@ubuntu:~/repo_test/my_repo$ repo sync
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 6 (delta 3), reused 0 (delta 0)
+From ..
+   44459aa..0e50bf0  master     -> origin/master
+project .repo/manifests/
+Updating 44459aa..0e50bf0
+Fast-forward
+ default.xml  | 5 +++++
+ repo_init.sh | 2 ++
+ 2 files changed, 7 insertions(+)
+
+Fetching project manifest.git
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (22) The requested URL returned error: 404 Not Found
+Server does not provide clone.bundle; ignoring.
+remote: Enumerating objects: 22, done.
+remote: Counting objects: 100% (22/22), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 711 (delta 16), reused 6 (delta 2), pack-reused 689
+Receiving objects: 100% (711/711), 165.64 KiB | 286.00 KiB/s, done.
+Resolving deltas: 100% (525/525), done.
+From https://github.com/OP-TEE/manifest
+ * [new branch]      2.5.0      -> alt/2.5.0
+ * [new branch]      2.5.0-rc1  -> alt/2.5.0-rc1
+ * [new branch]      2.5.0-rc2  -> alt/2.5.0-rc2
+ * [new branch]      2.6.0      -> alt/2.6.0
+ * [new branch]      3.1.0      -> alt/3.1.0
+ * [new branch]      3.2.0      -> alt/3.2.0
+ * [new branch]      3.3.0      -> alt/3.3.0
+ * [new branch]      master     -> alt/master
+ * [new tag]         1.0.0      -> 1.0.0
+ * [new tag]         1.0.0-rc1  -> 1.0.0-rc1
+ * [new tag]         1.0.0-rc2  -> 1.0.0-rc2
+ * [new tag]         1.0.1      -> 1.0.1
+ * [new tag]         1.1.0      -> 1.1.0
+ * [new tag]         2.0.0      -> 2.0.0
+ * [new tag]         2.1.0      -> 2.1.0
+ * [new tag]         2.2.0      -> 2.2.0
+ * [new tag]         2.3.0      -> 2.3.0
+ * [new tag]         2.4.0      -> 2.4.0
+ * [new tag]         2.5.0      -> 2.5.0
+ * [new tag]         2.6.0      -> 2.6.0
+ * [new tag]         3.0.0      -> 3.0.0
+ * [new tag]         3.1.0      -> 3.1.0
+ * [new tag]         3.2.0      -> 3.2.0
+ * [new tag]         3.3.0      -> 3.3.0
+Fetching projects:  25% (1/4)  Fetching project manifest
+Fetching projects:  50% (2/4)  Fetching project manifest
+Fetching projects:  75% (3/4)  Fetching project manifest
+Fetching projects: 100% (4/4), done.
+Shared project manifest found, disabling pruning.
+Shared project manifest found, disabling pruning.
+Shared project manifest found, disabling pruning.
+
+rednoah@ubuntu:~/repo_test/my_repo$
+------
+rednoah@ubuntu:~/repo_test$ git log
+commit 0e50bf05af68997157a89641079872b02588f83c (HEAD -> master)
+Author: sliu <sz_liusha@spectratech.com>
+Date:   Wed Nov 21 08:52:25 2018 +0800
+
+    Add 3.3.0 branch's HEAD's SHA1 with sync-c to see what happens
+
+    This commit changes default.xml, which happens after repo init.
+    In other words, "repo init" is run before this commit is submit.
+    So when repo sync is run, it will update manifest git firstly.
+    You can check its printed info in the next commit!
+
+commit ea3009e30d51204c1ce47d14b9291e02ba5a14ee
+Author: sliu <sz_liusha@spectratech.com>
+Date:   Wed Nov 21 08:44:59 2018 +0800
+
+    Add bash label and comments for repo init -u
+
+commit 44459aa76b4bd3ff0241dd0a084b6d8d752edab4
+Author: sliu <sz_liusha@spectratech.com>
+Date:   Tue Nov 20 18:30:10 2018 +0800
+
+    fix spelling error
+
+commit 17a7ff09e06313b1f345cf41b64bb1e11719cceb
+Author: sliu <sz_liusha@spectratech.com>
+Date:   Tue Nov 20 18:10:58 2018 +0800
+
+    org
+rednoah@ubuntu:~/repo_test$
+------
+    So "repo sync" will update manifest git repo firstly:
+From ..
+44459aa..0e50bf0  master     -> origin/master
+project .repo/manifests/
+Updating 44459aa..0e50bf0
+-----what happens for a sha1 revision of 3.3.0 branch HEAD with sync-c="true", so if you want to reduce sync traffic, use some branch name instead
+rednoah@ubuntu:~/repo_test/my_repo/some-rev-not_shallow$ git branch -vv -a
+* (no branch)           f58100e OP-TEE 3.3.0 stable
+  remotes/alt/2.5.0     5128da6 Stable versions of manifests on 2.5.0
+  remotes/alt/2.5.0-rc1 1890269 Stable versions of manifests on 2.5.0-rc1
+  remotes/alt/2.5.0-rc2 98c6ca5 [Fixup!] fvp, juno, qemu_v8: pin updated ARM-TF
+  remotes/alt/2.6.0     0843611 Stable versions of manifests on 2.6.0
+  remotes/alt/3.1.0     872ab23 OP-TEE 3.1.0 stable
+  remotes/alt/3.2.0     4a9beff OP-TEE 3.2.0 stable
+  remotes/alt/3.3.0     f58100e OP-TEE 3.3.0 stable
+  remotes/alt/master    445fda9 Update QEMU, QEMUv8, HiKey620, HiKey960, Juno and FVP to kernel v4.19
+  remotes/m/master      f58100e OP-TEE 3.3.0 stable
+rednoah@ubuntu:~/repo_test/my_repo/some-rev-not_shallow$ cd ..
 	-->
 	<project path="some-rev-not_shallow" name="manifest.git" revision="f58100e086063b58f47748026f5ca7accce17971" sync-c="true" />
+	<project path="some-rev-with-name" name="manifest.git" revision="3.3.0" sync-c="true" />
 </manifest>
