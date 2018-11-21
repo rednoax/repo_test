@@ -15,4 +15,9 @@
 	The following use a initial commit(the earliest) sha1 hash
 	-->
 	<project path="some-revision" name="manifest" revision="dedcb92008ea3df251455ab11a79f00020521a6c" />
+	<!--
+	the following commit is a remotes/alt/3.3.0 branch's head's SHA1.
+	Add sync-c="true" with it to see what happened
+	-->
+	<project path="some-rev-not_shallow" name="manifest.git" revision="f58100e086063b58f47748026f5ca7accce17971" sync-c="true" />
 </manifest>
