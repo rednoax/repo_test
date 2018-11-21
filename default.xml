@@ -114,7 +114,7 @@ From ..
 44459aa..0e50bf0  master     -> origin/master
 project .repo/manifests/
 Updating 44459aa..0e50bf0
-///////what happens for a sha1 revision of 3.3.0 branch HEAD with sync-c="true", so if you want to reduce sync traffic, use some branch name instead
+///////a sha1 revision of 3.3.0 branch HEAD with sync-c="true" CANNOT work as expect, so if you want to reduce sync traffic, use some branch name instead
 rednoah@ubuntu:~/repo_test/my_repo/some-rev-not_shallow$ git branch -vv -a
 * (no branch)           f58100e OP-TEE 3.3.0 stable
   remotes/alt/2.5.0     5128da6 Stable versions of manifests on 2.5.0
@@ -129,5 +129,12 @@ rednoah@ubuntu:~/repo_test/my_repo/some-rev-not_shallow$ git branch -vv -a
 rednoah@ubuntu:~/repo_test/my_repo/some-rev-not_shallow$ cd ..
 	-->
 	<project path="some-rev-not_shallow" name="manifest.git" revision="f58100e086063b58f47748026f5ca7accce17971" sync-c="true" />
+<!--
+the following works for reduce traffic:
+rednoah@ubuntu:~/repo_test/my_repo/some-rev-with-name$ git branch -vv -a
+* (no branch)       f58100e OP-TEE 3.3.0 stable
+  remotes/alt/3.3.0 f58100e OP-TEE 3.3.0 stable
+  remotes/m/master  -> alt/3.3.0
+-->
 	<project path="some-rev-with-name" name="manifest.git" revision="3.3.0" sync-c="true" />
 </manifest>
