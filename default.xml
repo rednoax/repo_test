@@ -77,7 +77,7 @@ Shared project manifest found, disabling pruning.
 Shared project manifest found, disabling pruning.
 
 rednoah@ubuntu:~/repo_test/my_repo$
-------
+///////
 rednoah@ubuntu:~/repo_test$ git log
 commit 0e50bf05af68997157a89641079872b02588f83c (HEAD -> master)
 Author: sliu <sz_liusha@spectratech.com>
@@ -108,13 +108,13 @@ Date:   Tue Nov 20 18:10:58 2018 +0800
 
     org
 rednoah@ubuntu:~/repo_test$
-------
+///////
     So "repo sync" will update manifest git repo firstly:
 From ..
 44459aa..0e50bf0  master     -> origin/master
 project .repo/manifests/
 Updating 44459aa..0e50bf0
------what happens for a sha1 revision of 3.3.0 branch HEAD with sync-c="true", so if you want to reduce sync traffic, use some branch name instead
+///////what happens for a sha1 revision of 3.3.0 branch HEAD with sync-c="true", so if you want to reduce sync traffic, use some branch name instead
 rednoah@ubuntu:~/repo_test/my_repo/some-rev-not_shallow$ git branch -vv -a
 * (no branch)           f58100e OP-TEE 3.3.0 stable
   remotes/alt/2.5.0     5128da6 Stable versions of manifests on 2.5.0
