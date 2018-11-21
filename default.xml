@@ -34,8 +34,7 @@ Fast-forward
 Fetching project manifest.git
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  --><!--
+........
 curl: (22) The requested URL returned error: 404 Not Found
 Server does not provide clone.bundle; ignoring.
 remote: Enumerating objects: 22, done.
